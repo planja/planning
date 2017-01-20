@@ -3,12 +3,20 @@
 # ~~~~
 
 # Home page
-GET        /                    controllers.ApplicationController.index
+GET           /                                controllers.ApplicationController.index
 
 # Regions page
-GET        /regions             controllers.RegionsController.regions
+GET           /regions/regions                 controllers.RegionsController.regions
+
+GET           /regions/getregions              controllers.RegionsController.getRegions
+
+POST          /regions/saveregion              controllers.RegionsController.saveRegion
+
+DELETE        /regions/deleteregion/:id        controllers.RegionsController.deleteRegion(id:Long)
+
+PUT           /regions/updateregion            controllers.RegionsController.updateRegion
 
 # Map static resources from the /public folder to the /assets URL path
-GET        /assets/*file        controllers.Assets.at(path="/public", file)
+GET           /assets/*file                    controllers.Assets.at(path="/public", file)
 
     

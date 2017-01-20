@@ -5,21 +5,54 @@ import play.api.Play
 import play.api.db.slick.DatabaseConfigProvider
 import scala.concurrent.Future
 import slick.driver.JdbcProfile
+import scala.concurrent.ExecutionContext.Implicits.global
 
 /**
   * Created by ShchykalauM on 19.01.2017.
   */
-
-abstract class Query[Q <: Table[E], E] {
+/**
+  *
+  * @tparam Q - item table class
+  * @tparam E - item class
+  */
+abstract class Query[Q <: IndexedTable[E], E <: Unique] {
   val dbConfig = DatabaseConfigProvider.get[JdbcProfile](Play.current)
 
   val db = dbConfig.db
 
   val query: TableQuery[Q]
 
+  val insertQuery = (v: E) => {
+    (query += v).flatMap { x =>
+      query.sortBy {
+        _.id.desc.nullsFirst
+      }.map(_.id).result.head
+    }
+  }
 }
 
-trait DataBaseOperations[Q <: Table[E], E] extends Query[Q, E] {
+/**
+  *
+  * @tparam Q - item table class
+  * @tparam E - item class
+  */
+trait DataBaseOperations[Q <: IndexedTable[E], E <: Unique] extends Query[Q, E] {
+
+  /**
+    * delete record
+    */
+  def delete(id: Long): Future[Int] = {
+    db.run(query.filter(_.id === id).delete)
+  }
+
+
+  /**
+    * insert record
+    */
+  def insert(item: E): Future[Long] = db.run {
+    insertQuery(item)
+  }
+
   /**
     * list or records
     */
