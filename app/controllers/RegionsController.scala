@@ -26,8 +26,9 @@ object RegionsController extends Controller {
   def saveRegion() = Action { request =>
     val json = request.body.asJson.get
     val save = json.as[RegionViewModel]
-    RegionDataBaseOperations.insert(RegionViewModel.toRegion(save))
-    Ok("save")
+    val id = Await.ready(RegionDataBaseOperations.insert(RegionViewModel.toRegion(save)), Duration.Inf).value.get.get
+    save.id = Option(id)
+    Ok(Json.toJson(save))
   }
 
   def deleteRegion(id: Long) = Action {
@@ -39,7 +40,7 @@ object RegionsController extends Controller {
     val json = request.body.asJson.get
     val update = json.as[RegionViewModel]
     RegionDataBaseOperations.update(RegionViewModel.toRegion(update))
-    Ok("update")
+    Ok(Json.toJson(update))
   }
 
 }

@@ -63,7 +63,7 @@ $(document).ready(function () {
         }
     ];
 
-    $("#jsGrid").jsGrid({
+    $("#regionsGrid").jsGrid({
         height: 400,
         width: "100%",
 
@@ -83,42 +83,25 @@ $(document).ready(function () {
 
         fields: [
             {name: "id", type: "number", visible: false},
-            {name: "shortName", type: "text", title: "Short Name"},
-            {name: "fullName", type: "text", title: "Full Name"},
+            {
+                name: "shortName", type: "text", title: "Short Name", validate: {
+                message: "Enter region short name", validator: function (value) {
+                    return value.length > 0;
+                }
+            }
+            },
+            {
+                name: "fullName",
+                type: "text",
+                title: "Full Name",
+                validate: {
+                    message: "Enter region full name", validator: function (value) {
+                        return value.length > 0;
+                    }
+                }
+            },
             {type: "control"}
         ]
     });
 
 });
-
-/*planningApp.controller("regionsController",
- function ($scope, $http) {
-
- $scope.getRegions = function () {
- $http({
- method: "GET",
- url: "/regions/getregions"
- }).then(function mySucces(response) {
- $scope.data = response.data;
- }, function myError(response) {
- $scope.data = response.statusText;
- });
- };
-
- $scope.getRegions();
-
- /* $scope.tableParams = new ngTableParams({
- page: 1,
- count: 6
- },{
- total:tableData.length,
- //Returns the data for rendering
- getData : function($defer,params){
- $http.get('data.json').then(function(response) {
- tableData = response.data.person;
- $defer.resolve(tableData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
- params.total(tableData.length);
- });
- }
- });
- });*/
