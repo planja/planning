@@ -1,12 +1,13 @@
-package controllers
+package controllers.regions
 
+import models.region.RegionDataBaseOperations
+import play.api.libs.json.Json
 import play.api.mvc._
+import viewmodels.common.CommonInfoViewModel
+import viewmodels.region.RegionViewModel
 
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
-import models.region.RegionDataBaseOperations
-import play.api.libs.json.Json
-import viewmodels.region.RegionViewModel
 
 /**
   * Created by ShchykalauM on 19.01.2017.
@@ -41,6 +42,12 @@ object RegionsController extends Controller {
     val update = json.as[RegionViewModel]
     RegionDataBaseOperations.update(RegionViewModel.toRegion(update))
     Ok(Json.toJson(update))
+  }
+
+  def getRegionsInfo = Action {
+    val list = Await.ready(RegionDataBaseOperations.listAll, Duration.Inf).value.get.get
+    val result = list.map(o => CommonInfoViewModel(o.id.get, o.fullName))
+    Ok(Json.toJson(result))
   }
 
 }

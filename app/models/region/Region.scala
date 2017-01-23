@@ -2,13 +2,7 @@ package models.region
 
 import slick.lifted.Tag
 import config.SlickDriver.driver.api._
-import play.api.Play
-import play.api.db.slick.DatabaseConfigProvider
-import slick.driver.JdbcProfile
 import common.{DataBaseOperations, IndexedTable, Unique}
-import play.api.libs.json.Json
-
-import scala.concurrent.Future
 
 /**
   * Created by ShchykalauM on 19.01.2017.

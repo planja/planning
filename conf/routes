@@ -3,20 +3,35 @@
 # ~~~~
 
 # Home page
-GET           /                                controllers.ApplicationController.index
+GET           /                                   controllers.application.ApplicationController.index
 
 # Regions page
-GET           /regions/regions                 controllers.RegionsController.regions
+GET           /regions/regions                    controllers.regions.RegionsController.regions
 
-GET           /regions/getregions              controllers.RegionsController.getRegions
+GET           /regions/getregions                 controllers.regions.RegionsController.getRegions
 
-POST          /regions/saveregion              controllers.RegionsController.saveRegion
+POST          /regions/saveregion                 controllers.regions.RegionsController.saveRegion
 
-DELETE        /regions/deleteregion/:id        controllers.RegionsController.deleteRegion(id:Long)
+DELETE        /regions/deleteregion/:id           controllers.regions.RegionsController.deleteRegion(id:Long)
 
-PUT           /regions/updateregion            controllers.RegionsController.updateRegion
+PUT           /regions/updateregion               controllers.regions.RegionsController.updateRegion
+
+GET           /regions/getregionsinfo             controllers.regions.RegionsController.getRegionsInfo
+
+# Countries page
+GET           /countries/countries                controllers.countries.CountriesController.countries
+
+GET           /countries/getcountries             controllers.countries.CountriesController.getCountries
+
+POST          /countries/savecountry              controllers.countries.CountriesController.saveCountry
+
+DELETE        /countries/deletecountry/:id        controllers.countries.CountriesController.deleteCountry(id:Long)
+
+PUT           /countries/updatecountry            controllers.countries.CountriesController.updateCountry
+
+GET           /countries/getcountriesinfo         controllers.countries.CountriesController.getCountriesInfo
 
 # Map static resources from the /public folder to the /assets URL path
-GET           /assets/*file                    controllers.Assets.at(path="/public", file)
+GET           /assets/*file                       controllers.Assets.at(path="/public", file)
 
     

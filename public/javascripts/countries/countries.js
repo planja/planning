@@ -1,20 +1,24 @@
 /**
- * Created by ShchykalauM on 19.01.2017.
+ * Created by ShchykalauM on 23.01.2017.
  */
 
+var regionsDataSource = dsRegions.getRegionsDataSource();
+
 $(document).ready(function () {
-    $("#menu-regions").addClass("active");
+    $("#menu-countries").addClass("active");
+    regionsDataSource = JSON.parse(regionsDataSource.responseText);
 
     var controller = {
         loadData: function (filter) {
             var data = $.ajax({
                 type: "GET",
-                url: "/regions/getregions",
+                url: "/countries/getcountries",
                 async: false
             });
             return $.grep(JSON.parse(data.responseText), function (region) {
                 return (!filter.fullName || region.fullName.indexOf(filter.fullName) > -1)
                     && (!filter.shortName || region.shortName.indexOf(filter.shortName) > -1);
+                    //&& (!filter.regionId || region.regionId == filter.regionId);
             })
 
         },
@@ -22,7 +26,7 @@ $(document).ready(function () {
         insertItem: function (item) {
             return $.ajax({
                 type: "POST",
-                url: "/regions/saveregion",
+                url: "/countries/savecountry",
                 data: JSON.stringify(item),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json"
@@ -32,7 +36,7 @@ $(document).ready(function () {
         updateItem: function (item) {
             return $.ajax({
                 type: "PUT",
-                url: "/regions/updateregion",
+                url: "/countries/updatecountry",
                 data: JSON.stringify(item),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json"
@@ -42,13 +46,13 @@ $(document).ready(function () {
         deleteItem: function (item) {
             return $.ajax({
                 type: "DELETE",
-                url: "/regions/deleteregion/" + item.id,
+                url: "/countries/deletecountry/" + item.id,
                 data: item
             });
         }
     };
 
-    $("#regionsGrid").jsGrid({
+    $("#countriesGrid").jsGrid({
         height: 400,
         width: "100%",
 
@@ -62,7 +66,7 @@ $(document).ready(function () {
         pageSize: 15,
         pageButtonCount: 5,
 
-        deleteConfirm: "Do you really want to delete the region?",
+        deleteConfirm: "Do you really want to delete the country?",
 
         controller: controller,
 
@@ -70,7 +74,7 @@ $(document).ready(function () {
             {name: "id", type: "number", visible: false},
             {
                 name: "shortName", type: "text", title: "Short Name", validate: {
-                message: "Enter region short name", validator: function (value) {
+                message: "Enter country short name", validator: function (value) {
                     return value.length > 0;
                 }
             }
@@ -80,10 +84,18 @@ $(document).ready(function () {
                 type: "text",
                 title: "Full Name",
                 validate: {
-                    message: "Enter region full name", validator: function (value) {
+                    message: "Enter country full name", validator: function (value) {
                         return value.length > 0;
                     }
                 }
+            },
+            {
+                name: "regionId",
+                title: "Region",
+                type: "select",
+                items: regionsDataSource,
+                valueField: "id",
+                textField: "text"
             },
             {type: "control"}
         ]
