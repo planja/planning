@@ -1,4 +1,4 @@
-package viewmodels
+package viewmodels.businessplanstatus
 
 import models.businessplanstatus.BusinessPlanStatus
 import play.api.libs.json.Json
@@ -18,7 +18,7 @@ object BusinessPlanStatusViewModel {
 
   implicit val BusinessPlanStatusViewModelFormat = Json.format[BusinessPlanStatusViewModel]
 
-  def toBusinessPlan(businessPlanStatusViewModel: BusinessPlanStatusViewModel): BusinessPlanStatus = {
+  def toBusinessPlanStatus(businessPlanStatusViewModel: BusinessPlanStatusViewModel): BusinessPlanStatus = {
     BusinessPlanStatus(businessPlanStatusViewModel.id, businessPlanStatusViewModel.name)
   }
 }

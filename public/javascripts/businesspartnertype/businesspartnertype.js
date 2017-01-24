@@ -4,17 +4,17 @@
 
 
 $(document).ready(function () {
-    $("#menu-business-plan-status").addClass("active")
+    $("#menu-business-partner-type").addClass("active")
 
     var controller = {
         loadData: function (filter) {
             var data = $.ajax({
                 type: "GET",
-                url: "/businessplanstatus/getbusinessplanstatus",
+                url: "/businesspartnertype/getbusinesspartnertype",
                 async: false
             });
-            return $.grep(JSON.parse(data.responseText), function (businessPlanStatus) {
-                return (!filter.name || businessPlanStatus.name.indexOf(filter.name) > -1);
+            return $.grep(JSON.parse(data.responseText), function (businessPartnerType) {
+                return (!filter.name || businessPartnerType.name.indexOf(filter.name) > -1);
             })
 
         },
@@ -22,7 +22,7 @@ $(document).ready(function () {
         insertItem: function (item) {
             return $.ajax({
                 type: "POST",
-                url: "/businessplanstatus/savebusinessplanstatus",
+                url: "/businesspartnertype/savebusinesspartnertype",
                 data: JSON.stringify(item),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json"
@@ -32,7 +32,7 @@ $(document).ready(function () {
         updateItem: function (item) {
             return $.ajax({
                 type: "PUT",
-                url: "/businessplanstatus/updatebusinessplanstatus",
+                url: "/businesspartnertype/updatebusinesspartnertype",
                 data: JSON.stringify(item),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json"
@@ -42,13 +42,13 @@ $(document).ready(function () {
         deleteItem: function (item) {
             return $.ajax({
                 type: "DELETE",
-                url: "/businessplanstatus/deletebusinessplanstatus/" + item.id,
+                url: "/businesspartnertype/deletebusinesspartnertype/" + item.id,
                 data: item
             });
         }
     };
 
-    $("#business-plan-status-grid").jsGrid({
+    $("#business-partner-type-grid").jsGrid({
         height: 400,
         width: "100%",
 
@@ -62,15 +62,15 @@ $(document).ready(function () {
         pageSize: 15,
         pageButtonCount: 5,
 
-        deleteConfirm: "Do you really want to delete the business plan status?",
+        deleteConfirm: "Do you really want to delete the business partner type?",
 
         controller: controller,
 
         fields: [
             {name: "id", type: "number", visible: false},
             {
-                name: "name", type: "text", title: "Business Plan Status", validate: {
-                message: "Enter business plan status", validator: function (value) {
+                name: "name", type: "text", title: "Business Partner Type", validate: {
+                message: "Enter business partner type", validator: function (value) {
                     return value.length > 0;
                 }
             }

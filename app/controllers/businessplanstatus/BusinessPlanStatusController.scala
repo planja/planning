@@ -4,7 +4,7 @@ package controllers.businessplanstatus
 import models.businessplanstatus.BusinessPlanStatusDataBaseOperations
 import play.api.libs.json.Json
 import play.api.mvc._
-import viewmodels.BusinessPlanStatusViewModel
+import viewmodels.businessplanstatus.BusinessPlanStatusViewModel
 import viewmodels.common.CommonInfoViewModel
 
 import scala.concurrent.Await
@@ -28,7 +28,7 @@ object BusinessPlanStatusController extends Controller {
   def saveBusinessPlanStatus = Action { request =>
     val json = request.body.asJson.get
     val save = json.as[BusinessPlanStatusViewModel]
-    val id = Await.ready(BusinessPlanStatusDataBaseOperations.insert(BusinessPlanStatusViewModel.toBusinessPlan(save)), Duration.Inf).value.get.get
+    val id = Await.ready(BusinessPlanStatusDataBaseOperations.insert(BusinessPlanStatusViewModel.toBusinessPlanStatus(save)), Duration.Inf).value.get.get
     save.id = Option(id)
     Ok(Json.toJson(save))
   }
@@ -41,7 +41,7 @@ object BusinessPlanStatusController extends Controller {
   def updateBusinessPlanStatus() = Action { request =>
     val json = request.body.asJson.get
     val update = json.as[BusinessPlanStatusViewModel]
-    BusinessPlanStatusDataBaseOperations.update(BusinessPlanStatusViewModel.toBusinessPlan(update))
+    BusinessPlanStatusDataBaseOperations.update(BusinessPlanStatusViewModel.toBusinessPlanStatus(update))
     Ok(Json.toJson(update))
   }
 

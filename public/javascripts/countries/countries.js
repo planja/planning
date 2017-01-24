@@ -7,6 +7,12 @@ var regionsDataSource = dsRegions.getRegionsDataSource();
 $(document).ready(function () {
     $("#menu-countries").addClass("active");
     regionsDataSource = JSON.parse(regionsDataSource.responseText);
+    regionsDataSource.push({id: -1, text: "Show all"});
+
+    regionsDataSource.sort(function (a, b) {
+        return a.id - b.id;
+    });
+
 
     var controller = {
         loadData: function (filter) {
@@ -16,9 +22,15 @@ $(document).ready(function () {
                 async: false
             });
             return $.grep(JSON.parse(data.responseText), function (region) {
-                return (!filter.fullName || region.fullName.indexOf(filter.fullName) > -1)
-                    && (!filter.shortName || region.shortName.indexOf(filter.shortName) > -1);
-                    //&& (!filter.regionId || region.regionId == filter.regionId);
+
+                if (filter.regionId == -1) {
+                    return (!filter.fullName || region.fullName.indexOf(filter.fullName) > -1)
+                        && (!filter.shortName || region.shortName.indexOf(filter.shortName) > -1);
+                } else {
+                    return (!filter.fullName || region.fullName.indexOf(filter.fullName) > -1)
+                        && (!filter.shortName || region.shortName.indexOf(filter.shortName) > -1)
+                        && (!filter.regionId || region.regionId == filter.regionId);
+                }
             })
 
         },
@@ -95,10 +107,18 @@ $(document).ready(function () {
                 type: "select",
                 items: regionsDataSource,
                 valueField: "id",
-                textField: "text"
+                textField: "text", validate: {
+                message: "Enter correct region", validator: function (value) {
+                    return value != -1;
+                }
+            }
             },
             {type: "control"}
         ]
+    });
+
+    $(".jsgrid-insert-mode-button").change(function () {
+        alert("The text has been changed.");
     });
 
 });
