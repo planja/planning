@@ -2,6 +2,7 @@ package models.country
 
 import common.{DataBaseOperations, IndexedTable, Unique}
 import config.SlickDriver.driver.api._
+import models.region.RegionTable
 import slick.lifted.Tag
 
 /**
@@ -18,6 +19,8 @@ class CountryTable(tag: Tag) extends IndexedTable[Country](tag, "COUNTRIES") {
   def fullName = column[String]("FULL_NAME")
 
   def regionId = column[Long]("REGION_ID")
+
+  def region_fk = foreignKey("country_region_fk", regionId, TableQuery[RegionTable])(_.id, onUpdate = ForeignKeyAction.Cascade, onDelete = ForeignKeyAction.Cascade)
 
   def * = (id.?, shortName, fullName, regionId) <> ((Country.apply _).tupled, Country.unapply)
 }
