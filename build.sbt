@@ -14,7 +14,8 @@ libraryDependencies ++= Seq(jdbc,
   "com.typesafe.slick" %% "slick" % "3.1.1",
   "com.typesafe.slick" %% "slick-extensions" % "3.1.0",
   "com.typesafe.play" %% "play-slick" % "1.1.1",
-  "org.suecarter" % "freeslick_2.11" % "3.1.1.1"
+  "org.suecarter" % "freeslick_2.11" % "3.1.1.1",
+  "com.github.tototoshi" %% "slick-joda-mapper" % "2.0.0"
 )
 
 unmanagedResourceDirectories in Test <+= baseDirectory(_ / "target/web/public/test")

@@ -5,6 +5,8 @@
 # Home page
 GET           /                                                         controllers.application.ApplicationController.index
 
+GET           /index/loaddatafortreeview                                controllers.application.ApplicationController.loadDataForTreeView
+
 # Regions page
 GET           /regions/regions                                          controllers.regions.RegionsController.regions
 
@@ -59,6 +61,8 @@ GET           /businesspartnertype/getbusinesspartnertypeinfo           controll
 
 # Business partnres page
 GET           /businesspartners/businesspartners                        controllers.businesspartners.BusinessPartnersController.businessPartners
+
+POST          /businesspartners/savebusinesspartner                     controllers.businesspartners.BusinessPartnersController.saveBusinessPartner
 
 # Map static resources from the /public folder to the /assets URL path
 GET           /assets/*file                                             controllers.Assets.at(path="/public", file)

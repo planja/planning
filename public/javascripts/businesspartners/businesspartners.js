@@ -9,7 +9,7 @@ var countriesDataSource = dsCountries.getCountriesDataSource();
 countriesDataSource = JSON.parse(countriesDataSource.responseText);
 
 planningApp.controller("businessPartnerController",
-    function AnswerController($scope) {
+    function BusinessPartnerController($scope, $http) {
         var now = new Date();
         var stringMonthFromDate = (now.getMonth() + 1).toString().length == 1 ? ("0" + (now.getMonth() + 1).toString()) : ((now.getMonth() + 1).toString());
 
@@ -22,7 +22,26 @@ planningApp.controller("businessPartnerController",
         };
 
         $scope.save = function (businessPartner, businessPartnerTypeId, countryId) {
+            $('#eventForm').data('formValidation').validate();
             if ($('#eventForm').data('formValidation').isValid()) {
+
+                var data = {
+                    id: null,
+                    shortName: businessPartner.shortName,
+                    startDate: moment(businessPartner.startDate).format('YYYY-MM-DD'),
+                    endDate: moment(businessPartner.endDate).format('YYYY-MM-DD'),
+                    address: businessPartner.address,
+                    email: businessPartner.email,
+                    countryId: countryId,
+                    businessPartnerTypeId: businessPartnerTypeId
+                };
+
+                $http.post("/businesspartners/savebusinesspartner", data)
+                    .then(function (data) {
+                        alert("good")
+                    }, function (data) {
+
+                    });
                 alert(", ваш ответ сохранен");
             }
         };
