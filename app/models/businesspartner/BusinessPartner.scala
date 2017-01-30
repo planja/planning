@@ -6,8 +6,9 @@ import org.joda.time.DateTime
 import common.{DataBaseOperations, IndexedTable, Unique}
 import slick.lifted.Tag
 import config.SlickDriver.driver.api._
-
 import config.DateTimeConverter._
+import models.businesspartnertype.BusinessPartnerTypeTable
+import models.country.CountryTable
 
 /**
   * Created by ShchykalauM on 27.01.2017.
@@ -38,6 +39,10 @@ class BusinessPartnerTable(tag: Tag) extends IndexedTable[BusinessPartner](tag, 
   def countryId = column[Long]("COUNTRY_ID")
 
   def businessPartnerTypeId = column[Long]("BUSINESS_PARTNER_TYPE_ID")
+
+  def country_fk = foreignKey("country_business_partner_fk", countryId, TableQuery[CountryTable])(_.id, onUpdate = ForeignKeyAction.NoAction, onDelete = ForeignKeyAction.SetNull)
+
+  def business_partner_type_fk = foreignKey("business_partner_type_business_partner_fk", businessPartnerTypeId, TableQuery[BusinessPartnerTypeTable])(_.id, onUpdate = ForeignKeyAction.NoAction, onDelete = ForeignKeyAction.SetNull)
 
   def * = (id.?, shortName, startDate, endDate, address, email, countryId, businessPartnerTypeId) <> ((BusinessPartner.apply _).tupled, BusinessPartner.unapply)
 }

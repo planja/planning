@@ -10,7 +10,7 @@ import scala.collection.mutable.ListBuffer
 /**
   * Created by ShchykalauM on 27.01.2017.
   */
-case class TreeViewViewModel(id: Long, text: String, nodes: Seq[TreeViewNodeViewModel])
+case class TreeViewViewModel(id: Long, text: String, nodes: Seq[TreeViewNodeViewModel], isBusinessPartner: Boolean)
 
 object TreeViewViewModel {
   implicit val TreeViewViewModelFormat = Json.format[TreeViewViewModel]
@@ -24,15 +24,15 @@ object TreeViewViewModel {
           var nodeForCountry = new ListBuffer[TreeViewNodeViewModel]
           for (businessPartner <- businessPartners) {
             if (businessPartner.countryId == country.id.get) {
-              nodeForCountry += TreeViewNodeViewModel(businessPartner.id.get, businessPartner.shortName, new ListBuffer[TreeViewNodeViewModel])
+              nodeForCountry += TreeViewNodeViewModel(businessPartner.id.get, businessPartner.shortName, new ListBuffer[TreeViewNodeViewModel], isBusinessPartner = true)
             }
           }
           //if (nodeForCountry.isEmpty) nodeForCountry = null
-          nodesForRegion += TreeViewNodeViewModel(country.id.get, country.fullName, nodeForCountry)
+          nodesForRegion += TreeViewNodeViewModel(country.id.get, country.fullName, nodeForCountry, isBusinessPartner = false)
         }
       }
       // if (nodesForRegion.isEmpty) nodesForRegion = null
-      result += TreeViewViewModel(region.id.get, region.fullName, nodesForRegion)
+      result += TreeViewViewModel(region.id.get, region.fullName, nodesForRegion, isBusinessPartner = false)
     }
     result
   }

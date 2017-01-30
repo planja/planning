@@ -4,7 +4,8 @@
 
 
 $(document).ready(function () {
-    $("#menu-business-plan-status").addClass("active")
+    $("#menu-business-plan-status").addClass("active");
+    $("#menu-dropdown").addClass("active");
 
     var controller = {
         loadData: function (filter) {

@@ -16,6 +16,10 @@ object ApplicationController extends Controller {
     Ok(views.html.common.index())
   }
 
+  def notFound = Action {
+    Ok(views.html.common.notfound())
+  }
+
   def loadDataForTreeView = Action { request =>
     val regions = Await.ready(RegionDataBaseOperations.listAll, Duration.Inf).value.get.get
     val countries = Await.ready(CountryDataBaseOperations.listAll, Duration.Inf).value.get.get

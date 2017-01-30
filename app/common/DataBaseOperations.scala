@@ -29,6 +29,9 @@ abstract class Query[Q <: IndexedTable[E], E <: Unique] {
       }.map(_.id).result.head
     }
   }
+
+  val detailQuery = (f: Q => Rep[Boolean]) => query.filter(f).result.headOption
+
 }
 
 /**
@@ -37,6 +40,13 @@ abstract class Query[Q <: IndexedTable[E], E <: Unique] {
   * @tparam E - item class
   */
 trait DataBaseOperations[Q <: IndexedTable[E], E <: Unique] extends Query[Q, E] {
+
+  /**
+    * find record
+    */
+  def find(id: Long): Future[Option[E]] = db.run {
+    detailQuery(_.id === id)
+  }
 
   /**
     * delete record
