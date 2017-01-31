@@ -3,8 +3,12 @@ package common
 import config.SlickDriver.driver.api._
 import play.api.Play
 import play.api.db.slick.DatabaseConfigProvider
+import slick.dbio.DBIOAction
+import slick.dbio.Effect.{Read, Write}
+
 import scala.concurrent.Future
 import slick.driver.JdbcProfile
+
 import scala.concurrent.ExecutionContext.Implicits.global
 
 /**
@@ -22,7 +26,7 @@ abstract class Query[Q <: IndexedTable[E], E <: Unique] {
 
   val query: TableQuery[Q]
 
-  val insertQuery = (v: E) => {
+  val insertQuery: (E) => DBIOAction[Long, NoStream, Write with Read] = (v: E) => {
     (query += v).flatMap { x =>
       query.sortBy {
         _.id.desc.nullsFirst

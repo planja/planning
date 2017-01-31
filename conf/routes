@@ -3,72 +3,85 @@
 # ~~~~
 
 # Home page
-GET           /                                                         controllers.application.ApplicationController.index
+GET           /                                                              controllers.application.ApplicationController.index
 
-GET           /index/loaddatafortreeview                                controllers.application.ApplicationController.loadDataForTreeView
+GET           /index/loaddatafortreeview                                     controllers.application.ApplicationController.loadDataForTreeView
 
-GET           /notfound                                                 controllers.application.ApplicationController.notFound
+GET           /notfound                                                      controllers.application.ApplicationController.notFound
 
 # Regions page
-GET           /regions/regions                                          controllers.regions.RegionsController.regions
+GET           /regions/regions                                               controllers.regions.RegionsController.regions
 
-GET           /regions/getregions                                       controllers.regions.RegionsController.getRegions
+GET           /regions/getregions                                            controllers.regions.RegionsController.getRegions
 
-POST          /regions/saveregion                                       controllers.regions.RegionsController.saveRegion
+POST          /regions/saveregion                                            controllers.regions.RegionsController.saveRegion
 
-DELETE        /regions/deleteregion/:id                                 controllers.regions.RegionsController.deleteRegion(id:Long)
+DELETE        /regions/deleteregion/:id                                      controllers.regions.RegionsController.deleteRegion(id:Long)
 
-PUT           /regions/updateregion                                     controllers.regions.RegionsController.updateRegion
+PUT           /regions/updateregion                                          controllers.regions.RegionsController.updateRegion
 
-GET           /regions/getregionsinfo                                   controllers.regions.RegionsController.getRegionsInfo
+GET           /regions/getregionsinfo                                        controllers.regions.RegionsController.getRegionsInfo
 
 # Countries page
-GET           /countries/countries                                      controllers.countries.CountriesController.countries
+GET           /countries/countries                                           controllers.countries.CountriesController.countries
 
-GET           /countries/getcountries                                   controllers.countries.CountriesController.getCountries
+GET           /countries/getcountries                                        controllers.countries.CountriesController.getCountries
 
-POST          /countries/savecountry                                    controllers.countries.CountriesController.saveCountry
+POST          /countries/savecountry                                         controllers.countries.CountriesController.saveCountry
 
-DELETE        /countries/deletecountry/:id                              controllers.countries.CountriesController.deleteCountry(id:Long)
+DELETE        /countries/deletecountry/:id                                   controllers.countries.CountriesController.deleteCountry(id:Long)
 
-PUT           /countries/updatecountry                                  controllers.countries.CountriesController.updateCountry
+PUT           /countries/updatecountry                                       controllers.countries.CountriesController.updateCountry
 
-GET           /countries/getcountriesinfo                               controllers.countries.CountriesController.getCountriesInfo
+GET           /countries/getcountriesinfo                                    controllers.countries.CountriesController.getCountriesInfo
 
 # Business plan status page
-GET           /businessplanstatus/businessplanstatus                    controllers.businessplanstatus.BusinessPlanStatusController.businessPlanStatus
+GET           /businessplanstatus/businessplanstatus                         controllers.businessplanstatus.BusinessPlanStatusController.businessPlanStatus
 
-GET           /businessplanstatus/getbusinessplanstatus                 controllers.businessplanstatus.BusinessPlanStatusController.getBusinessPlanStatus
+GET           /businessplanstatus/getbusinessplanstatus                      controllers.businessplanstatus.BusinessPlanStatusController.getBusinessPlanStatus
 
-POST          /businessplanstatus/savebusinessplanstatus                controllers.businessplanstatus.BusinessPlanStatusController.saveBusinessPlanStatus
+POST          /businessplanstatus/savebusinessplanstatus                     controllers.businessplanstatus.BusinessPlanStatusController.saveBusinessPlanStatus
 
-DELETE        /businessplanstatus/deletebusinessplanstatus/:id          controllers.businessplanstatus.BusinessPlanStatusController.deleteBusinessPlanStatus(id:Long)
+DELETE        /businessplanstatus/deletebusinessplanstatus/:id               controllers.businessplanstatus.BusinessPlanStatusController.deleteBusinessPlanStatus(id:Long)
 
-PUT           /businessplanstatus/updatebusinessplanstatus              controllers.businessplanstatus.BusinessPlanStatusController.updateBusinessPlanStatus
+PUT           /businessplanstatus/updatebusinessplanstatus                   controllers.businessplanstatus.BusinessPlanStatusController.updateBusinessPlanStatus
 
-GET           /businessplanstatus/getbusinessplanstatusinfo             controllers.businessplanstatus.BusinessPlanStatusController.getBusinessPlanStatusInfo
+GET           /businessplanstatus/getbusinessplanstatusinfo                  controllers.businessplanstatus.BusinessPlanStatusController.getBusinessPlanStatusInfo
 
 # Business partner type page
-GET           /businesspartnertype/businesspartnertype                  controllers.businesspartnertype.BusinessPartnerTypeController.businessPartnerType
+GET           /businesspartnertype/businesspartnertype                       controllers.businesspartnertype.BusinessPartnerTypeController.businessPartnerType
 
-GET           /businesspartnertype/getbusinesspartnertype               controllers.businesspartnertype.BusinessPartnerTypeController.getBusinessPartnerType
+GET           /businesspartnertype/getbusinesspartnertype                    controllers.businesspartnertype.BusinessPartnerTypeController.getBusinessPartnerType
 
-POST          /businesspartnertype/savebusinesspartnertype              controllers.businesspartnertype.BusinessPartnerTypeController.saveBusinessPartnerType
+POST          /businesspartnertype/savebusinesspartnertype                   controllers.businesspartnertype.BusinessPartnerTypeController.saveBusinessPartnerType
 
-DELETE        /businesspartnertype/deletebusinesspartnertype/:id        controllers.businesspartnertype.BusinessPartnerTypeController.deleteBusinessPartnerType(id:Long)
+DELETE        /businesspartnertype/deletebusinesspartnertype/:id             controllers.businesspartnertype.BusinessPartnerTypeController.deleteBusinessPartnerType(id:Long)
 
-PUT           /businesspartnertype/updatebusinesspartnertype            controllers.businesspartnertype.BusinessPartnerTypeController.updateBusinessPartnerType
+PUT           /businesspartnertype/updatebusinesspartnertype                 controllers.businesspartnertype.BusinessPartnerTypeController.updateBusinessPartnerType
 
-GET           /businesspartnertype/getbusinesspartnertypeinfo           controllers.businesspartnertype.BusinessPartnerTypeController.getBusinessPartnerTypeInfo
+GET           /businesspartnertype/getbusinesspartnertypeinfo                controllers.businesspartnertype.BusinessPartnerTypeController.getBusinessPartnerTypeInfo
 
 # Business partnres page
-GET           /businesspartners/businesspartners                        controllers.businesspartners.BusinessPartnersController.businessPartners
+GET           /businesspartners/businesspartners                             controllers.businesspartners.BusinessPartnersController.businessPartners
 
-POST          /businesspartners/savebusinesspartner                     controllers.businesspartners.BusinessPartnersController.saveBusinessPartner
+POST          /businesspartners/savebusinesspartner                          controllers.businesspartners.BusinessPartnersController.saveBusinessPartner
 
-GET           /businesspartners/editbusinesspartner/:id                 controllers.businesspartners.BusinessPartnersController.editBusinessPartner(id:Long)
+GET           /businesspartners/editbusinesspartner/:id                      controllers.businesspartners.BusinessPartnersController.editBusinessPartner(id:Long)
+
+GET           /businesspartners/getbusinesspartnersinfo                      controllers.businesspartners.BusinessPartnersController.getBusinessPartnersInfo
+
+# Users of business partners
+GET           /usersofbusinesspartner/usersofbusinesspartner                 controllers.usersofbusinesspartner.UserOfBusinessPartnerController.usersOfBusinessPartner
+
+GET           /usersofbusinesspartner/getusersofbusinesspartner              controllers.usersofbusinesspartner.UserOfBusinessPartnerController.getUsersOfBusinessPartner
+
+POST          /usersofbusinesspartner/saveuserofbusinesspartner              controllers.usersofbusinesspartner.UserOfBusinessPartnerController.saveUserOfBusinessPartner
+
+DELETE        /usersofbusinesspartner/deleteuserofbusinesspartner/:id        controllers.usersofbusinesspartner.UserOfBusinessPartnerController.deleteUserOfBusinessPartner(id:Long)
+
+PUT           /usersofbusinesspartner/updateuserofbusinesspartner            controllers.usersofbusinesspartner.UserOfBusinessPartnerController.updateUserOfBusinessPartner
 
 # Map static resources from the /public folder to the /assets URL path
-GET           /assets/*file                                             controllers.Assets.at(path="/public", file)
+GET           /assets/*file                                                  controllers.Assets.at(path="/public", file)
 
     

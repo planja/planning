@@ -1,8 +1,10 @@
 package controllers.businesspartners
 
 import models.businesspartner.BusinessPartnerDataBaseOperations
+import play.api.libs.json.Json
 import play.api.mvc.{Action, Controller}
 import viewmodels.businesspartner.BusinessPartnerViewModel
+import viewmodels.common.CommonInfoViewModel
 
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
@@ -30,5 +32,10 @@ object BusinessPartnersController extends Controller {
     else Ok(views.html.common.notfound())
   }
 
+  def getBusinessPartnersInfo = Action {
+    val list = Await.ready(BusinessPartnerDataBaseOperations.listAll, Duration.Inf).value.get.get
+    val result = list.map(o => CommonInfoViewModel(o.id.get, o.shortName))
+    Ok(Json.toJson(result))
+  }
 
 }

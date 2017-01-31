@@ -99,3 +99,11 @@ body {
         padding-left: 0;
     }
 }
+
+.nav .open > a, .nav .open > a:focus, .nav .open > a:hover {
+    background-color: #eee;
+    border-color: #eee;
+}
+.nav-justified li a{
+    font-size: 12px;
+}
