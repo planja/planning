@@ -37,9 +37,14 @@ $(document).ready(function () {
                     return (!filter.firstName || userOfBusinessPartner.firstName.indexOf(filter.firstName) > -1)
                         && (!filter.lastName || userOfBusinessPartner.lastName.indexOf(filter.lastName) > -1)
                         && (userOfBusinessPartner.businessPartnerId == filter.businessPartnerId);
+                } else if (filter.businessPartnerId == -1) {
+                    return (!filter.firstName || userOfBusinessPartner.firstName.indexOf(filter.firstName) > -1)
+                        && (!filter.lastName || userOfBusinessPartner.lastName.indexOf(filter.lastName) > -1)
+                        && (userOfBusinessPartner.countryId == filter.countryId);
                 } else return (!filter.firstName || userOfBusinessPartner.firstName.indexOf(filter.firstName) > -1)
                     && (!filter.lastName || userOfBusinessPartner.lastName.indexOf(filter.lastName) > -1)
-                    && (userOfBusinessPartner.countryId == filter.countryId);
+                    && (userOfBusinessPartner.countryId == filter.countryId)
+                    && (userOfBusinessPartner.businessPartnerId == filter.businessPartnerId);
 
 
             })
