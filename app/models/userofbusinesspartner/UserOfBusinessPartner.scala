@@ -4,6 +4,8 @@ import common.{DataBaseOperations, IndexedTable, Unique}
 import slick.lifted.Tag
 import config.SlickDriver.driver.api._
 
+import scala.concurrent.Future
+
 /**
   * Created by ShchykalauM on 31.01.2017.
   */
@@ -31,6 +33,7 @@ class UserOfBusinessPartnerTable(tag: Tag) extends IndexedTable[UserOfBusinessPa
 
 
 object UserOfBusinessPartnerDataBaseOperations extends DataBaseOperations[UserOfBusinessPartnerTable, UserOfBusinessPartner] {
+  override val query = TableQuery[UserOfBusinessPartnerTable]
 
   def update(updatedUserOfBusinessPartner: UserOfBusinessPartner): UserOfBusinessPartner = {
     val action = query.filter(_.id === updatedUserOfBusinessPartner.id).map(userOfbusinessPartner => (userOfbusinessPartner.firstName, userOfbusinessPartner.lastName,
@@ -43,7 +46,5 @@ object UserOfBusinessPartnerDataBaseOperations extends DataBaseOperations[UserOf
     updatedUserOfBusinessPartner
   }
 
-
-  override val query = TableQuery[UserOfBusinessPartnerTable]
 
 }

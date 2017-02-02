@@ -70,6 +70,8 @@ GET           /businesspartners/editbusinesspartner/:id                      con
 
 GET           /businesspartners/getbusinesspartnersinfo                      controllers.businesspartners.BusinessPartnersController.getBusinessPartnersInfo
 
+GET           /businesspartners/loaddataforbusinesspartner/:id               controllers.businesspartners.BusinessPartnersController.loadDataForBusinessPartner(id:Long)
+
 # Users of business partners
 GET           /usersofbusinesspartner/usersofbusinesspartner                 controllers.usersofbusinesspartner.UserOfBusinessPartnerController.usersOfBusinessPartner
 
