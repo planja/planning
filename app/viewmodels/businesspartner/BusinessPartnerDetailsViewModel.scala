@@ -3,6 +3,7 @@ package viewmodels.businesspartner
 import models.businesspartner.BusinessPartner
 import models.userofbusinesspartner.UserOfBusinessPartner
 import org.joda.time.DateTime
+import play.api.libs.json.Json
 
 import scala.collection.mutable.ListBuffer
 
@@ -26,6 +27,9 @@ case class BusinessPartnerDetailsViewModel(var id: Long,
 }
 
 object BusinessPartnerDetailsViewModel {
+
+  implicit val businessPartnerDetailsViewModeFormat = Json.format[BusinessPartnerDetailsViewModel]
+
   def getUsersIdOfBusinessPartner(usersOfBusinessPartners: Seq[UserOfBusinessPartner], businessPartnerId: Long): ListBuffer[Long] = {
     var usersIdOfBusinessPartner = new ListBuffer[Long]
     for (userOfBusinessPartner <- usersOfBusinessPartners) {

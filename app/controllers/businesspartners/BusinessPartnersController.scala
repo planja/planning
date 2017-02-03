@@ -7,6 +7,7 @@ import play.api.mvc.{Action, Controller}
 import viewmodels.businesspartner.{BusinessPartnerDetailsViewModel, BusinessPartnerViewModel}
 import viewmodels.common.CommonInfoViewModel
 
+import scala.collection.mutable.ListBuffer
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 
@@ -42,10 +43,11 @@ object BusinessPartnersController extends Controller {
   }
 
   def loadDataForBusinessPartner(id: Long) = Action {
-    val businessPartner = Await.ready(BusinessPartnerDataBaseOperations.find(id), Duration.Inf).value.get.get
+    val businessPartner = Await.ready(BusinessPartnerDataBaseOperations.find(id), Duration.Inf).value.get.get.get
     val usersOfBusinessPartner = Await.ready(UserOfBusinessPartnerDataBaseOperations.listAll, Duration.Inf).value.get.get
     val usersIdOfBusinessPartner = BusinessPartnerDetailsViewModel.getUsersIdOfBusinessPartner(usersOfBusinessPartner, id)
-    Ok("qwe")
+    val businessPartnerDetailsViewModel = new BusinessPartnerDetailsViewModel(businessPartner, usersIdOfBusinessPartner)
+    Ok(Json.toJson(businessPartnerDetailsViewModel))
   }
 
 }

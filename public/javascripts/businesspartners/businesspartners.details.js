@@ -11,32 +11,29 @@ countriesDataSource = JSON.parse(countriesDataSource.responseText);
 planningApp.controller("businessPartnerDetailController",
     function BusinessPartnerController($scope, $http) {
 
+        $scope.businessPartnerTypeDataSource = businessPartnerTypeDataSource;
+        $scope.countriesDataSource = countriesDataSource;
+        $scope.businessPartner = {};
+
         $scope.loadData = function () {
             $http({
                 method: "GET",
                 url: "/businesspartners/loaddataforbusinesspartner/" + businessPartnerId,
                 async: false
             }).then(function (response) {
-                $scope.data = response.data;
+                $scope.businessPartner = response.data;
+                $scope.businessPartnerTypeId = response.data.businessPartnerTypeId;
+                $scope.countryId = response.data.countryId;
+                $scope.businessPartner.startDate = moment(response.data.startDate).format('MM/DD/YYYY');
+                $scope.businessPartner.endDate = moment(response.data.endDate).format('MM/DD/YYYY');
             }, function (response) {
                 $scope.data = response.statusText;
             });
         };
-
         $scope.loadData();
 
-        var now = new Date();
-        var stringMonthFromDate = (now.getMonth() + 1).toString().length == 1 ? ("0" + (now.getMonth() + 1).toString()) : ((now.getMonth() + 1).toString());
 
-        $scope.businessPartnerTypeDataSource = businessPartnerTypeDataSource;
-        $scope.countriesDataSource = countriesDataSource;
-
-        $scope.businessPartner = {
-            startDate: stringMonthFromDate + "/" + now.getDate().toString() + "/" + (now.getYear() + 1900).toString(),
-            endDate: stringMonthFromDate + "/" + now.getDate().toString() + "/" + (now.getYear() + 1901).toString()
-        };
-
-        $scope.save = function (businessPartner, businessPartnerTypeId, countryId) {
+        $scope.update = function (businessPartner, businessPartnerTypeId, countryId) {
             $('#eventForm').data('formValidation').validate();
             if ($('#eventForm').data('formValidation').isValid()) {
 
@@ -60,10 +57,13 @@ planningApp.controller("businessPartnerDetailController",
                 alert(", ваш ответ сохранен");
             }
         };
+
     });
 
 
 $(document).ready(function () {
+
+
 
     $('#startDatePicker')
         .datepicker({
@@ -156,7 +156,7 @@ $(document).ready(function () {
                             message: 'Country is required'
                         }
                     }
-                },
+                }
             }
         })
         .on('success.field.fv', function (e, data) {
@@ -169,7 +169,5 @@ $(document).ready(function () {
             }
         });
 
-
-    //form.formValidation('revalidateField', 'startDate');
 
 });

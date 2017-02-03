@@ -6,16 +6,15 @@
         <script>
                 var businessPartnerId = "@id";
         </script>
-        <title>Add Business Partner</title>
+        <title>Business Partner</title>
         @common.menu()
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap-datetimepicker.min.css")">
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap-datepicker.min.css")">
-        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap-select.min.css")">
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/customselectpicker.css")">
         <script src="@routes.Assets.at("javascripts/form-validation.min.js")" type="text/javascript"></script>
         <script src="@routes.Assets.at("javascripts/bootstrap-form-validation.min.js")" type="text/javascript"></script>
         <script src="@routes.Assets.at("javascripts/bootstrap-datepicker.min.js")" type="text/javascript"></script>
         <script src="@routes.Assets.at("javascripts/bootstrap-datetimepicker.min.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.at("javascripts/bootstrap-select.min.js")" type="text/javascript"></script>
         <script src="@routes.Assets.at("javascripts/moment.min.js")" type="text/javascript"></script>
         <script src="@routes.Assets.at("javascripts/businesspartnertype/businesspartnertype.datasource.js")" type="text/javascript"></script>
         <script src="@routes.Assets.at("javascripts/countries/countries.datasource.js")" type="text/javascript"></script>
@@ -28,7 +27,73 @@
                 <h1>Business Partner</h1>
             </div>
             <div ng-controller="businessPartnerDetailController">
+                <form id="eventForm" name="eventForm">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-5 col-sm-5">
+                            <h1>Common information</h1>
+                            <div class="form-group">
+                                <label for="shortName">Short name</label>
+                                <input ng-model="businessPartner.shortName" name="shortName" type="text" class="form-control" id="shortName" placeholder="Enter short name">
+                            </div>
 
+                            <div class="form-group">
+                                <label for="startDate">Start date</label>
+                                <div class="dateContainer">
+                                    <div class="input-group input-append date" id="startDatePicker">
+                                        <input readonly ng-model="businessPartner.startDate" id="startDate" type="text" class="form-control" name="startDate" />
+                                        <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="endDate">End date</label>
+                                <div class="dateContainer">
+                                    <div class="input-group input-append date" id="endDatePicker">
+                                        <input readonly ng-model="businessPartner.endDate" id="endDate" type="text" class="form-control" name="endDate" />
+                                        <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group select">
+                                <label for="businessPartnerType">Business partner type</label>
+                                <span class="arr"></span>
+                                <select id="businessPartnerType" name="businessPartnerType" ng-model="businessPartnerTypeId"
+                                ng-init="businessPartnerTypeId = businessPartnerTypeId || businessPartnerTypeDataSource[0].id"
+                                ng-options="option.id as option.text for option in businessPartnerTypeDataSource"></select>
+                            </div>
+
+                            <div class="form-group">
+                                <button ng-click="update(businessPartner,businessPartnerTypeId,countryId)" class="btn btn-primary">Update</button>
+                            </div>
+                            <div class="form-group">
+                                <button ng-click="test()" class="btn btn-primary">Test</button>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-5 col-sm-5">
+                            <h1>Contact information</h1>
+                            <div class="form-group">
+                                <label for="address">Address</label>
+                                <input ng-model="businessPartner.address" name="address" type="text" class="form-control" id="address" placeholder="Enter address">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input ng-model="businessPartner.email" name="email" type="text" class="form-control" id="email" placeholder="Enter email">
+                            </div>
+
+                            <div class="form-group select">
+                                <label for="country">Country</label>
+                                <span class="arr"></span>
+                                <select id="country" name="country" ng-model="countryId"
+                                ng-init="countryId = countryId || countriesDataSource[0].id"
+                                ng-options="option.id as option.text for option in countriesDataSource"></select>
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </body>
