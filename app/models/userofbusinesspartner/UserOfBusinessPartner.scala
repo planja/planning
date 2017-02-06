@@ -46,5 +46,22 @@ object UserOfBusinessPartnerDataBaseOperations extends DataBaseOperations[UserOf
     updatedUserOfBusinessPartner
   }
 
+  def updateBusinessPartner(filteredUsers: Seq[UserOfBusinessPartner], updatedIds: Seq[Long], users: Seq[UserOfBusinessPartner], businessPartnerId: Long): Unit = {
+    for (user <- filteredUsers) {
+      if (!updatedIds.contains(user.id.get)) {
+        val updatedUser = user.copy(businessPartnerId = null)
+        update(updatedUser)
+      }
+    }
+
+    for (user <- users) {
+      if (updatedIds.contains(user.id.get)) {
+        val updatedUser = user.copy(businessPartnerId = Option(businessPartnerId))
+        update(updatedUser)
+      }
+    }
+
+  }
+
 
 }

@@ -10,17 +10,18 @@ import scala.collection.mutable.ListBuffer
 /**
   * Created by ShchykalauM on 02.02.2017.
   */
-case class BusinessPartnerDetailsViewModel(var id: Long,
+case class BusinessPartnerDetailsViewModel(var id: Option[Long],
                                            shortName: String,
                                            startDate: DateTime,
                                            endDate: DateTime,
                                            address: String,
                                            email: String,
                                            countryId: Long,
-                                           businessPartnerTypeId: Long, usersIdOfBusinessPartners: ListBuffer[Long]) {
+                                           businessPartnerTypeId: Long,
+                                           usersIdOfBusinessPartners: ListBuffer[Long]) {
 
   def this(businessPartner: BusinessPartner, usersOfBusinessPartner: ListBuffer[Long]) {
-    this(businessPartner.id.get, businessPartner.shortName, businessPartner.startDate, businessPartner.endDate, businessPartner.address, businessPartner.email, businessPartner.countryId,
+    this(businessPartner.id, businessPartner.shortName, businessPartner.startDate, businessPartner.endDate, businessPartner.address, businessPartner.email, businessPartner.countryId,
       businessPartner.businessPartnerTypeId, usersOfBusinessPartner)
   }
 
@@ -29,6 +30,12 @@ case class BusinessPartnerDetailsViewModel(var id: Long,
 object BusinessPartnerDetailsViewModel {
 
   implicit val businessPartnerDetailsViewModeFormat = Json.format[BusinessPartnerDetailsViewModel]
+
+  def toBusinessPartner(businessPartnerDetailsViewModel: BusinessPartnerDetailsViewModel): BusinessPartner = {
+    BusinessPartner(businessPartnerDetailsViewModel.id,businessPartnerDetailsViewModel.shortName,businessPartnerDetailsViewModel.startDate,
+      businessPartnerDetailsViewModel.endDate,businessPartnerDetailsViewModel.address,businessPartnerDetailsViewModel.email,businessPartnerDetailsViewModel.countryId,
+      businessPartnerDetailsViewModel.businessPartnerTypeId)
+  }
 
   def getUsersIdOfBusinessPartner(usersOfBusinessPartners: Seq[UserOfBusinessPartner], businessPartnerId: Long): ListBuffer[Long] = {
     var usersIdOfBusinessPartner = new ListBuffer[Long]

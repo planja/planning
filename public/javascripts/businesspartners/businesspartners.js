@@ -38,11 +38,10 @@ planningApp.controller("businessPartnerController",
 
                 $http.post("/businesspartners/savebusinesspartner", data)
                     .then(function (data) {
-                        alert("good")
+                        window.location.href = "/";
                     }, function (data) {
 
                     });
-                alert(", ваш ответ сохранен");
             }
         };
     });

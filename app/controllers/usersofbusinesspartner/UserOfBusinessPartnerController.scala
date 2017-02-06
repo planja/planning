@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import models.userofbusinesspartner.{UserOfBusinessPartner, UserOfBusinessPartnerDataBaseOperations}
 import play.api.libs.json.Json
 import play.api.mvc.{Action, Controller}
+import viewmodels.common.CommonInfoViewModel
 import viewmodels.userofbusinesspartner.UserOfBusinessPartnerViewModel
 
 import scala.concurrent.Await
@@ -37,6 +38,12 @@ object UserOfBusinessPartnerController extends Controller {
     val update = json.as[UserOfBusinessPartnerViewModel]
     UserOfBusinessPartnerDataBaseOperations.update(UserOfBusinessPartnerViewModel.toUserOfBusinessPartner(update))
     Ok(Json.toJson(update))
+  }
+
+  def getUsersOfBusinessPartnerInfo = Action {
+    val list = Await.ready(UserOfBusinessPartnerDataBaseOperations.listAll, Duration.Inf).value.get.get
+    val result = list.map(o => CommonInfoViewModel(o.id.get, o.firstName + " " + o.lastName))
+    Ok(Json.toJson(result))
   }
 
 

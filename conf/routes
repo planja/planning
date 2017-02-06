@@ -72,6 +72,8 @@ GET           /businesspartners/getbusinesspartnersinfo                      con
 
 GET           /businesspartners/loaddataforbusinesspartner/:id               controllers.businesspartners.BusinessPartnersController.loadDataForBusinessPartner(id:Long)
 
+POST          /businesspartners/updatebusinesspartner                        controllers.businesspartners.BusinessPartnersController.updateBusinessPartner()
+
 # Users of business partners
 GET           /usersofbusinesspartner/usersofbusinesspartner                 controllers.usersofbusinesspartner.UserOfBusinessPartnerController.usersOfBusinessPartner
 
@@ -82,6 +84,8 @@ POST          /usersofbusinesspartner/saveuserofbusinesspartner              con
 DELETE        /usersofbusinesspartner/deleteuserofbusinesspartner/:id        controllers.usersofbusinesspartner.UserOfBusinessPartnerController.deleteUserOfBusinessPartner(id:Long)
 
 PUT           /usersofbusinesspartner/updateuserofbusinesspartner            controllers.usersofbusinesspartner.UserOfBusinessPartnerController.updateUserOfBusinessPartner
+
+GET           /usersofbusinesspartner/getusersofbusinesspartnerinfo          controllers.usersofbusinesspartner.UserOfBusinessPartnerController.getUsersOfBusinessPartnerInfo
 
 # Map static resources from the /public folder to the /assets URL path
 GET           /assets/*file                                                  controllers.Assets.at(path="/public", file)

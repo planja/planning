@@ -8,13 +8,25 @@ businessPartnerTypeDataSource = JSON.parse(businessPartnerTypeDataSource.respons
 var countriesDataSource = dsCountries.getCountriesDataSource();
 countriesDataSource = JSON.parse(countriesDataSource.responseText);
 
+var usersOfBusinessPartnerDataSource = dsUsersOfBusinessPartner.getUsersOfBusinessPartner();
+usersOfBusinessPartnerDataSource.read();
+
 planningApp.controller("businessPartnerDetailController",
     function BusinessPartnerController($scope, $http) {
 
+
         $scope.businessPartnerTypeDataSource = businessPartnerTypeDataSource;
         $scope.countriesDataSource = countriesDataSource;
+        $scope.usersOfBusinessPartnerDataSource = usersOfBusinessPartnerDataSource;
         $scope.businessPartner = {};
 
+        $scope.selectOptions = {
+            placeholder: "Select users...",
+            dataTextField: "text",
+            dataValueField: "id",
+            valuePrimitive: true,
+            dataSource: $scope.usersOfBusinessPartnerDataSource
+        };
         $scope.loadData = function () {
             $http({
                 method: "GET",
@@ -24,6 +36,7 @@ planningApp.controller("businessPartnerDetailController",
                 $scope.businessPartner = response.data;
                 $scope.businessPartnerTypeId = response.data.businessPartnerTypeId;
                 $scope.countryId = response.data.countryId;
+                $scope.usersIdOfBusinessPartners = response.data.usersIdOfBusinessPartners;
                 $scope.businessPartner.startDate = moment(response.data.startDate).format('MM/DD/YYYY');
                 $scope.businessPartner.endDate = moment(response.data.endDate).format('MM/DD/YYYY');
             }, function (response) {
@@ -33,28 +46,28 @@ planningApp.controller("businessPartnerDetailController",
         $scope.loadData();
 
 
-        $scope.update = function (businessPartner, businessPartnerTypeId, countryId) {
+        $scope.update = function (businessPartner, businessPartnerTypeId, countryId,usersIdOfBusinessPartners) {
             $('#eventForm').data('formValidation').validate();
             if ($('#eventForm').data('formValidation').isValid()) {
 
                 var data = {
-                    id: null,
+                    id: parseInt(businessPartnerId),
                     shortName: businessPartner.shortName,
                     startDate: moment(businessPartner.startDate).format('YYYY-MM-DD'),
                     endDate: moment(businessPartner.endDate).format('YYYY-MM-DD'),
                     address: businessPartner.address,
                     email: businessPartner.email,
                     countryId: countryId,
-                    businessPartnerTypeId: businessPartnerTypeId
+                    businessPartnerTypeId: businessPartnerTypeId,
+                    usersIdOfBusinessPartners: usersIdOfBusinessPartners
                 };
 
-                $http.post("/businesspartners/savebusinesspartner", data)
+                $http.post("/businesspartners/updatebusinesspartner", data)
                     .then(function (data) {
-                        alert("good")
+                        window.location.href = "/";
                     }, function (data) {
 
                     });
-                alert(", ваш ответ сохранен");
             }
         };
 
@@ -62,7 +75,6 @@ planningApp.controller("businessPartnerDetailController",
 
 
 $(document).ready(function () {
-
 
 
     $('#startDatePicker')
@@ -168,6 +180,4 @@ $(document).ready(function () {
                 data.fv.revalidateField('startDate');
             }
         });
-
-
 });

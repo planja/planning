@@ -24,7 +24,7 @@ object BusinessPartnersController extends Controller {
     val json = request.body.asJson.get
     val save = json.as[BusinessPartnerViewModel]
     val result = Await.ready(BusinessPartnerDataBaseOperations.insert(BusinessPartnerViewModel.toBusinessPartner(save)), Duration.Inf)
-    Ok(views.html.common.index())
+    Ok("save")
   }
 
   def getBusinessPartnersInfo = Action {
@@ -48,6 +48,16 @@ object BusinessPartnersController extends Controller {
     val usersIdOfBusinessPartner = BusinessPartnerDetailsViewModel.getUsersIdOfBusinessPartner(usersOfBusinessPartner, id)
     val businessPartnerDetailsViewModel = new BusinessPartnerDetailsViewModel(businessPartner, usersIdOfBusinessPartner)
     Ok(Json.toJson(businessPartnerDetailsViewModel))
+  }
+
+  def updateBusinessPartner() = Action { request =>
+    val json = request.body.asJson.get
+    val update = json.as[BusinessPartnerDetailsViewModel]
+    BusinessPartnerDataBaseOperations.update(BusinessPartnerDetailsViewModel.toBusinessPartner(update))
+    var users = Await.ready(UserOfBusinessPartnerDataBaseOperations.listAll, Duration.Inf).value.get.get
+    val filteredUsers = users.filter(o => o.businessPartnerId == update.id)
+    UserOfBusinessPartnerDataBaseOperations.updateBusinessPartner(filteredUsers, update.usersIdOfBusinessPartners, users, update.id.get)
+    Ok("update")
   }
 
 }

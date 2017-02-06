@@ -51,5 +51,16 @@ object BusinessPartnerDataBaseOperations extends DataBaseOperations[BusinessPart
 
   override val query = TableQuery[BusinessPartnerTable]
 
+  def update(updatedBusinessPartner: BusinessPartner): BusinessPartner = {
+    val action = query.filter(_.id === updatedBusinessPartner.id).map(businessPartner => (businessPartner.shortName, businessPartner.startDate, businessPartner.endDate,
+      businessPartner.address, businessPartner.email, businessPartner.countryId, businessPartner.businessPartnerTypeId))
+      .update(updatedBusinessPartner.shortName, updatedBusinessPartner.startDate, updatedBusinessPartner.endDate, updatedBusinessPartner.address,
+        updatedBusinessPartner.email, updatedBusinessPartner.countryId, updatedBusinessPartner.businessPartnerTypeId)
+    val future = dbConfig.db.run(action)
+
+
+    updatedBusinessPartner
+  }
+
 }
 
