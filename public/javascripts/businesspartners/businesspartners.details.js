@@ -95,6 +95,11 @@ planningApp.controller("businessPartnerDetailController",
                 $scope.businessPlan.businessPartnerId = parseInt(businessPartnerId);
                 $scope.businessPlanStatusId = 0;
                 $scope.businessPlan.visible = false;
+                noty({
+                    type: 'information',
+                    timeout: 3000,
+                    text: 'Business plan successfully deleted!'
+                });
             }, function (response) {
             });
         };
@@ -130,7 +135,11 @@ planningApp.controller("businessPartnerDetailController",
 
                 $http.post("/businesspartners/updatebusinesspartner", data)
                     .then(function (data) {
-                        window.location.href = "/";
+                        noty({
+                            type: 'success',
+                            timeout: 3000,
+                            text: 'Business partner successfully updated!'
+                        });
                     }, function (data) {
 
                     });
@@ -138,6 +147,7 @@ planningApp.controller("businessPartnerDetailController",
         };
 
         $scope.saveBusinessPlan = function (businessPlan, businessPlanStatusId) {
+
             var data = {
                 id: businessPlan.id,
                 plan: businessPlan.plan,
@@ -149,7 +159,11 @@ planningApp.controller("businessPartnerDetailController",
             $http.post("/businesspartners/savebusinessplan", data)
                 .then(function (data) {
                     $scope.businessPlan.visible = true;
-                    alert("Business plan saved")
+                    noty({
+                        type: 'success',
+                        timeout: 3000,
+                        text: 'Business plan successfully saved!'
+                    });
                 }, function (data) {
 
                 });
