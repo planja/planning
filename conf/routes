@@ -68,11 +68,19 @@ POST          /businesspartners/savebusinesspartner                          con
 
 GET           /businesspartners/editbusinesspartner/:id                      controllers.businesspartners.BusinessPartnersController.editBusinessPartner(id:Long)
 
+DELETE        /businesspartners/deletebusinesspartner/:id                    controllers.businesspartners.BusinessPartnersController.deleteBusinessPartner(id:Long)
+
 GET           /businesspartners/getbusinesspartnersinfo                      controllers.businesspartners.BusinessPartnersController.getBusinessPartnersInfo
 
 GET           /businesspartners/loaddataforbusinesspartner/:id               controllers.businesspartners.BusinessPartnersController.loadDataForBusinessPartner(id:Long)
 
 POST          /businesspartners/updatebusinesspartner                        controllers.businesspartners.BusinessPartnersController.updateBusinessPartner()
+
+POST          /businesspartners/savebusinessplan                             controllers.businesspartners.BusinessPartnersController.saveBusinessPlan
+
+GET           /businesspartners/loadbusinessplan/:id                         controllers.businesspartners.BusinessPartnersController.loadBusinessPlan(id:Long)
+
+DELETE        /businesspartners/deletebusinessplan/:id                       controllers.businesspartners.BusinessPartnersController.deleteBusinessPlan(id:Long)
 
 # Users of business partners
 GET           /usersofbusinesspartner/usersofbusinesspartner                 controllers.usersofbusinesspartner.UserOfBusinessPartnerController.usersOfBusinessPartner

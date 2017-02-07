@@ -1,10 +1,12 @@
 package controllers.businesspartners
 
 import models.businesspartner.BusinessPartnerDataBaseOperations
+import models.businessplan.BusinessPlanDataBaseOperations
 import models.userofbusinesspartner.UserOfBusinessPartnerDataBaseOperations
 import play.api.libs.json.Json
 import play.api.mvc.{Action, Controller}
 import viewmodels.businesspartner.{BusinessPartnerDetailsViewModel, BusinessPartnerViewModel}
+import viewmodels.businessplan.BusinessPlanViewModel
 import viewmodels.common.CommonInfoViewModel
 
 import scala.collection.mutable.ListBuffer
@@ -33,6 +35,11 @@ object BusinessPartnersController extends Controller {
     Ok(Json.toJson(result))
   }
 
+  def deleteBusinessPartner(id: Long) = Action {
+    BusinessPartnerDataBaseOperations.delete(id)
+    Ok("delete")
+  }
+
 
   //For details
   def editBusinessPartner(id: Long) = Action {
@@ -58,6 +65,30 @@ object BusinessPartnersController extends Controller {
     val filteredUsers = users.filter(o => o.businessPartnerId == update.id)
     UserOfBusinessPartnerDataBaseOperations.updateBusinessPartner(filteredUsers, update.usersIdOfBusinessPartners, users, update.id.get)
     Ok("update")
+  }
+
+  def loadBusinessPlan(id: Long) = Action {
+    var list = Await.ready(BusinessPlanDataBaseOperations.listAll, Duration.Inf).value.get.get
+    list = list.filter(o => o.businessPartnerId == id)
+    if (list.isEmpty)
+      Ok("null")
+    else Ok(Json.toJson(new BusinessPlanViewModel(list.head)))
+  }
+
+  def saveBusinessPlan = Action { request =>
+    val json = request.body.asJson.get
+    val save = json.as[BusinessPlanViewModel]
+    if (save.id.isEmpty) {
+      Await.ready(BusinessPlanDataBaseOperations.insert(BusinessPlanViewModel.toBusinessPlan(save)), Duration.Inf)
+    } else {
+      BusinessPlanDataBaseOperations.update(BusinessPlanViewModel.toBusinessPlan(save))
+    }
+    Ok("200")
+  }
+
+  def deleteBusinessPlan(id: Long) = Action {
+    BusinessPlanDataBaseOperations.delete(id)
+    Ok("delete")
   }
 
 }

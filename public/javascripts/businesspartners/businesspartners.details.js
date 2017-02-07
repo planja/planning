@@ -8,18 +8,34 @@ businessPartnerTypeDataSource = JSON.parse(businessPartnerTypeDataSource.respons
 var countriesDataSource = dsCountries.getCountriesDataSource();
 countriesDataSource = JSON.parse(countriesDataSource.responseText);
 
+var businessPlanStatusDataSource = dsBusinessPlanStatus.getBusinessPlanStatusDataSource();
+businessPlanStatusDataSource = JSON.parse(businessPlanStatusDataSource.responseText);
+
 var usersOfBusinessPartnerDataSource = dsUsersOfBusinessPartner.getUsersOfBusinessPartner();
 usersOfBusinessPartnerDataSource.read();
 
 planningApp.controller("businessPartnerDetailController",
     function BusinessPartnerController($scope, $http) {
 
-
+        //DataSources
         $scope.businessPartnerTypeDataSource = businessPartnerTypeDataSource;
         $scope.countriesDataSource = countriesDataSource;
         $scope.usersOfBusinessPartnerDataSource = usersOfBusinessPartnerDataSource;
+        $scope.businessPlanStatusDataSource = businessPlanStatusDataSource;
+
+        //BusinessPartner entity
         $scope.businessPartner = {};
 
+        //BusinessPlan entity
+        $scope.businessPlan = {
+            id: null,
+            plan: 0,
+            revenue: 0,
+            businessPartnerId: parseInt(businessPartnerId),
+            visible: false
+        };
+
+        //Kendo multiselect
         $scope.selectOptions = {
             placeholder: "Select users...",
             dataTextField: "text",
@@ -27,6 +43,10 @@ planningApp.controller("businessPartnerDetailController",
             valuePrimitive: true,
             dataSource: $scope.usersOfBusinessPartnerDataSource
         };
+
+        //Numeric textbox format
+        $scope.currencyFormat = "'# $'";
+
         $scope.loadData = function () {
             $http({
                 method: "GET",
@@ -40,13 +60,59 @@ planningApp.controller("businessPartnerDetailController",
                 $scope.businessPartner.startDate = moment(response.data.startDate).format('MM/DD/YYYY');
                 $scope.businessPartner.endDate = moment(response.data.endDate).format('MM/DD/YYYY');
             }, function (response) {
-                $scope.data = response.statusText;
+            });
+        };
+
+        $scope.loadBusinessPlan = function () {
+            $http({
+                method: "GET",
+                url: "/businesspartners/loadbusinessplan/" + businessPartnerId,
+                async: false
+            }).then(function (response) {
+                if (response.data != "null") {
+                    $scope.businessPlan.id = response.data.id;
+                    $scope.businessPlan.plan = response.data.plan;
+                    $scope.businessPlan.revenue = response.data.revenue;
+                    $scope.businessPlan.businessPartnerId = response.data.businessPartnerId;
+                    $scope.businessPlanStatusId = response.data.businessPlanStatusId;
+                    $scope.businessPlan.visible = true;
+                }
+            }, function (response) {
             });
         };
         $scope.loadData();
+        $scope.loadBusinessPlan();
+
+        $scope.deleteBusinessPlan = function (id) {
+            $http({
+                method: "DELETE",
+                url: "/businesspartners/deletebusinessplan/" + id,
+                async: false
+            }).then(function (response) {
+                $scope.businessPlan.id = null;
+                $scope.businessPlan.plan = 0;
+                $scope.businessPlan.revenue = 0;
+                $scope.businessPlan.businessPartnerId = parseInt(businessPartnerId);
+                $scope.businessPlanStatusId = 0;
+                $scope.businessPlan.visible = false;
+            }, function (response) {
+            });
+        };
+
+        $scope.deleteBusinessPartner = function () {
+            $http({
+                method: "DELETE",
+                url: "/businesspartners/deletebusinesspartner/" + businessPartnerId,
+                async: false
+            }).then(function (response) {
+                window.location.href = "/";
+            }, function (response) {
+                window.location.href = "/";
+            });
+        };
 
 
-        $scope.update = function (businessPartner, businessPartnerTypeId, countryId,usersIdOfBusinessPartners) {
+        $scope.updateBusinessPartner = function (businessPartner, businessPartnerTypeId, countryId, usersIdOfBusinessPartners) {
             $('#eventForm').data('formValidation').validate();
             if ($('#eventForm').data('formValidation').isValid()) {
 
@@ -70,6 +136,24 @@ planningApp.controller("businessPartnerDetailController",
                     });
             }
         };
+
+        $scope.saveBusinessPlan = function (businessPlan, businessPlanStatusId) {
+            var data = {
+                id: businessPlan.id,
+                plan: businessPlan.plan,
+                revenue: businessPlan.revenue,
+                businessPlanStatusId: businessPlanStatusId,
+                businessPartnerId: businessPlan.businessPartnerId
+            };
+
+            $http.post("/businesspartners/savebusinessplan", data)
+                .then(function (data) {
+                    $scope.businessPlan.visible = true;
+                    alert("Business plan saved")
+                }, function (data) {
+
+                });
+        }
 
     });
 
@@ -96,7 +180,6 @@ $(document).ready(function () {
         });
 
     var form = $('#eventForm');
-
     form
         .formValidation({
             framework: 'bootstrap',
