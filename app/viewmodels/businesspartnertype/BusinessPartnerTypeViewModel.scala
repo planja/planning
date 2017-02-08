@@ -6,7 +6,7 @@ import play.api.libs.json.Json
 /**
   * Created by ShchykalauM on 24.01.2017.
   */
-case class BusinessPartnerTypeViewModel(var id: Option[Long], name: String) {
+case class BusinessPartnerTypeViewModel(var id: Option[Long], var name: String) {
 
   def this(businessPartnerType: BusinessPartnerType) {
     this(businessPartnerType.id, businessPartnerType.name)

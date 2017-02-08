@@ -9,7 +9,6 @@ import viewmodels.businesspartner.{BusinessPartnerDetailsViewModel, BusinessPart
 import viewmodels.businessplan.BusinessPlanViewModel
 import viewmodels.common.CommonInfoViewModel
 
-import scala.collection.mutable.ListBuffer
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 

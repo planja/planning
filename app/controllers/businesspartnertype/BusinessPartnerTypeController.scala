@@ -33,7 +33,7 @@ object BusinessPartnerTypeController extends Controller {
   }
 
   def deleteBusinessPartnerType(id: Long) = Action {
-    BusinessPartnerTypeDataBaseOperations.delete(id)
+    Await.ready(BusinessPartnerTypeDataBaseOperations.delete(id), Duration.Inf)
     Ok("delete")
   }
 
