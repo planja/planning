@@ -7,7 +7,7 @@ import play.api.libs.functional.syntax._
 /**
   * Created by ShchykalauM on 31.01.2017.
   */
-case class UserOfBusinessPartnerViewModel(var id: Option[Long], firstName: String, lastName: String, isCertificated: Boolean, countryId: Option[Long], businessPartnerId: Option[Long]) {
+case class UserOfBusinessPartnerViewModel(var id: Option[Long], firstName: String, var lastName: String, isCertificated: Boolean, countryId: Option[Long], businessPartnerId: Option[Long]) {
 
   def this(userOfBusinessPartner: UserOfBusinessPartner) {
     this(userOfBusinessPartner.id, userOfBusinessPartner.firstName, userOfBusinessPartner.lastName, userOfBusinessPartner.isCertificated,

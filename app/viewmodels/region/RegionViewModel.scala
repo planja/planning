@@ -6,7 +6,7 @@ import play.api.libs.json.Json
 /**
   * Created by ShchykalauM on 20.01.2017.
   */
-case class RegionViewModel(var id: Option[Long], shortName: String, fullName: String) {
+case class RegionViewModel(var id: Option[Long], shortName: String, var fullName: String) {
   def this(region: Region) {
     this(region.id, region.shortName, region.fullName)
   }

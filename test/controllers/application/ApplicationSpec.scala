@@ -2,10 +2,8 @@ package controllers.application
 
 import common.SingleInstanceForTest
 import org.junit.runner._
-import org.specs2.mutable._
 import org.specs2.runner._
 import play.api.libs.json.JsArray
-import play.api.test.Helpers._
 import play.api.test._
 
 /**

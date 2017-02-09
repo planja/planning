@@ -33,7 +33,7 @@ object CountriesController extends Controller {
   }
 
   def deleteCountry(id: Long) = Action {
-    CountryDataBaseOperations.delete(id)
+    Await.ready(CountryDataBaseOperations.delete(id), Duration.Inf)
     Ok("delete")
   }
 

@@ -34,7 +34,7 @@ object BusinessPlanStatusController extends Controller {
   }
 
   def deleteBusinessPlanStatus(id: Long) = Action {
-    BusinessPlanStatusDataBaseOperations.delete(id)
+    Await.ready(BusinessPlanStatusDataBaseOperations.delete(id), Duration.Inf)
     Ok("delete")
   }
 

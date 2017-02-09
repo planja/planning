@@ -2,11 +2,9 @@ package controllers.businesspartnertype
 
 import common.SingleInstanceForTest
 import org.junit.runner.RunWith
-import org.specs2.mutable.Specification
 import org.specs2.runner.JUnitRunner
-import play.api.libs.json.{JsArray, JsObject, JsString, Json}
-import play.api.test.Helpers.{contentType, _}
-import play.api.test.{FakeApplication, FakeRequest, PlaySpecification, WithApplication}
+import play.api.libs.json.{JsArray, JsObject, Json}
+import play.api.test._
 import viewmodels.businesspartnertype.BusinessPartnerTypeViewModel
 
 /**

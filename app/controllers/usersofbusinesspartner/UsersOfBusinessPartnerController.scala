@@ -13,7 +13,7 @@ import scala.concurrent.duration.Duration
 /**
   * Created by ShchykalauM on 31.01.2017.
   */
-object UserOfBusinessPartnerController extends Controller {
+object UsersOfBusinessPartnerController extends Controller {
 
   def usersOfBusinessPartner = Action {
     Ok(views.html.usersofbusinesspartner.usersofbusinesspartner())
@@ -48,7 +48,7 @@ object UserOfBusinessPartnerController extends Controller {
 
 
   def deleteUserOfBusinessPartner(id: Long) = Action {
-    UserOfBusinessPartnerDataBaseOperations.delete(id)
+    Await.ready(UserOfBusinessPartnerDataBaseOperations.delete(id), Duration.Inf)
     Ok("delete")
   }
 

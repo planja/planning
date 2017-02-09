@@ -83,17 +83,17 @@ GET           /businesspartners/loadbusinessplan/:id                         con
 DELETE        /businesspartners/deletebusinessplan/:id                       controllers.businesspartners.BusinessPartnersController.deleteBusinessPlan(id:Long)
 
 # Users of business partners
-GET           /usersofbusinesspartner/usersofbusinesspartner                 controllers.usersofbusinesspartner.UserOfBusinessPartnerController.usersOfBusinessPartner
+GET           /usersofbusinesspartner/usersofbusinesspartner                 controllers.usersofbusinesspartner.UsersOfBusinessPartnerController.usersOfBusinessPartner
 
-GET           /usersofbusinesspartner/getusersofbusinesspartner              controllers.usersofbusinesspartner.UserOfBusinessPartnerController.getUsersOfBusinessPartner
+GET           /usersofbusinesspartner/getusersofbusinesspartner              controllers.usersofbusinesspartner.UsersOfBusinessPartnerController.getUsersOfBusinessPartner
 
-POST          /usersofbusinesspartner/saveuserofbusinesspartner              controllers.usersofbusinesspartner.UserOfBusinessPartnerController.saveUserOfBusinessPartner
+POST          /usersofbusinesspartner/saveuserofbusinesspartner              controllers.usersofbusinesspartner.UsersOfBusinessPartnerController.saveUserOfBusinessPartner
 
-DELETE        /usersofbusinesspartner/deleteuserofbusinesspartner/:id        controllers.usersofbusinesspartner.UserOfBusinessPartnerController.deleteUserOfBusinessPartner(id:Long)
+DELETE        /usersofbusinesspartner/deleteuserofbusinesspartner/:id        controllers.usersofbusinesspartner.UsersOfBusinessPartnerController.deleteUserOfBusinessPartner(id:Long)
 
-PUT           /usersofbusinesspartner/updateuserofbusinesspartner            controllers.usersofbusinesspartner.UserOfBusinessPartnerController.updateUserOfBusinessPartner
+PUT           /usersofbusinesspartner/updateuserofbusinesspartner            controllers.usersofbusinesspartner.UsersOfBusinessPartnerController.updateUserOfBusinessPartner
 
-GET           /usersofbusinesspartner/getusersofbusinesspartnerinfo          controllers.usersofbusinesspartner.UserOfBusinessPartnerController.getUsersOfBusinessPartnerInfo
+GET           /usersofbusinesspartner/getusersofbusinesspartnerinfo          controllers.usersofbusinesspartner.UsersOfBusinessPartnerController.getUsersOfBusinessPartnerInfo
 
 # Map static resources from the /public folder to the /assets URL path
 GET           /assets/*file                                                  controllers.Assets.at(path="/public", file)
