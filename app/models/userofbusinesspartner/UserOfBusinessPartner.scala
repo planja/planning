@@ -3,6 +3,7 @@ package models.userofbusinesspartner
 import common.{DataBaseOperations, IndexedTable, Unique}
 import slick.lifted.Tag
 import config.SlickDriver.driver.api._
+import models.businesspartner.BusinessPartnerTable
 
 import scala.concurrent.Future
 
@@ -26,7 +27,10 @@ class UserOfBusinessPartnerTable(tag: Tag) extends IndexedTable[UserOfBusinessPa
 
   def businessPartnerId = column[Option[Long]]("BUSINESS_PARTNER_ID")
 
-  def country_fk = foreignKey("user_of_business_partner_country_fk", countryId, TableQuery[UserOfBusinessPartnerTable])(_.id, onUpdate = ForeignKeyAction.NoAction, onDelete = ForeignKeyAction.Cascade)
+  def country_fk = foreignKey("user_of_business_partner_country_fk", countryId, TableQuery[UserOfBusinessPartnerTable])(_.id, onUpdate = ForeignKeyAction.NoAction, onDelete = ForeignKeyAction.NoAction)
+
+  def businessPartner_fk = foreignKey("user_of_business_partner_business_partner_fk", businessPartnerId, TableQuery[BusinessPartnerTable])(_.id, onUpdate = ForeignKeyAction.NoAction, onDelete = ForeignKeyAction.NoAction)
+
 
   def * = (id.?, firstName, lastName, isCertificated, countryId, businessPartnerId) <> ((UserOfBusinessPartner.apply _).tupled, UserOfBusinessPartner.unapply)
 }
