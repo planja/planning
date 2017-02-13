@@ -33,14 +33,14 @@ class BusinessPartnersSpec extends Specification with SingleInstanceForTest {
     }
 
     "load data for business partner" in {
-      val json = route(FakeRequest(GET, routes.BusinessPartnersController.loadDataForBusinessPartner(4).url)).get
+      val json = route(FakeRequest(GET, routes.BusinessPartnersController.loadDataForBusinessPartner(3).url)).get
       status(json) must equalTo(OK)
       contentType(json) must beSome.which(_ == "application/json")
-      contentAsJson(json).asInstanceOf[JsObject].value("id") must equalTo(JsNumber(4))
+      contentAsJson(json).asInstanceOf[JsObject].value("id") must equalTo(JsNumber(3))
     }
 
     "load business plan" in {
-      val json = route(FakeRequest(GET, routes.BusinessPartnersController.loadBusinessPlan(4).url)).get
+      val json = route(FakeRequest(GET, routes.BusinessPartnersController.loadBusinessPlan(3).url)).get
       status(json) must equalTo(OK)
       contentType(json) must beSome.which(_ == "application/json")
       contentAsJson(json).asInstanceOf[JsObject].value("id") must equalTo(JsNumber(3))

@@ -43,7 +43,7 @@ class CountriesSpec extends PlaySpecification with SingleInstanceForTest {
       contentAsJson(read).asInstanceOf[JsArray].value.length must beGreaterThan(0)
       var length = contentAsJson(read).asInstanceOf[JsArray].value.length
 
-      val countryViewModel = CountryViewModel(None, "DMK","Dominikana",8)
+      val countryViewModel = CountryViewModel(None, "DMK","Dominikana",5)
       val json = route(FakeRequest(POST, routes.CountriesController.saveCountry().url)
         .withHeaders("Content-Type" -> "application/json")
         .withBody(Json.toJson(countryViewModel).toString())).get
