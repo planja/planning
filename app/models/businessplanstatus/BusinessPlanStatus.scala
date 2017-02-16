@@ -9,7 +9,7 @@ import config.SlickDriver.driver.api._
   */
 case class BusinessPlanStatus(id: Option[Long], name: String) extends Unique
 
-class BusinessPlanStatusTable(tag: Tag) extends IndexedTable[BusinessPlanStatus](tag, "BUSINESS_PLAN_STATUS") {
+class BusinessPlanStatusTable(tag: Tag) extends IndexedTable[BusinessPlanStatus](tag, "business_plan_status") {
 
   def id = column[Long]("ID", O.PrimaryKey, O.AutoInc)
 

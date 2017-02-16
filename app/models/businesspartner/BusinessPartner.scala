@@ -22,7 +22,7 @@ case class BusinessPartner(id: Option[Long],
                            countryId: Long,
                            businessPartnerTypeId: Long) extends Unique
 
-class BusinessPartnerTable(tag: Tag) extends IndexedTable[BusinessPartner](tag, "BUSINESS_PARTNER") {
+class BusinessPartnerTable(tag: Tag) extends IndexedTable[BusinessPartner](tag, "business_partner") {
 
   def id = column[Long]("ID", O.PrimaryKey, O.AutoInc)
 

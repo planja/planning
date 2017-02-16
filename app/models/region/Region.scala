@@ -9,7 +9,7 @@ import common.{DataBaseOperations, IndexedTable, Unique}
   */
 case class Region(id: Option[Long], shortName: String, fullName: String) extends Unique
 
-class RegionTable(tag: Tag) extends IndexedTable[Region](tag, "REGIONS") {
+class RegionTable(tag: Tag) extends IndexedTable[Region](tag, "regions") {
 
   def id = column[Long]("ID", O.PrimaryKey, O.AutoInc)
 

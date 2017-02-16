@@ -13,7 +13,7 @@ import scala.concurrent.Future
 case class UserOfBusinessPartner(id: Option[Long], firstName: String, lastName: String, isCertificated: Boolean, countryId: Option[Long], businessPartnerId: Option[Long]) extends Unique
 
 
-class UserOfBusinessPartnerTable(tag: Tag) extends IndexedTable[UserOfBusinessPartner](tag, "USER_OF_BUSINESS_PARTNER") {
+class UserOfBusinessPartnerTable(tag: Tag) extends IndexedTable[UserOfBusinessPartner](tag, "user_of_business_partner") {
 
   def id = column[Long]("ID", O.PrimaryKey, O.AutoInc)
 

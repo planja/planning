@@ -13,7 +13,7 @@ import models.businessplanstatus.BusinessPlanStatusTable
   */
 case class BusinessPlan(id: Option[Long], plan: Long, revenue: Long, businessPlanStatusId: Long, businessPartnerId: Long) extends Unique
 
-class BusinessPlanTable(tag: Tag) extends IndexedTable[BusinessPlan](tag, "BUSINESS_PLAN") {
+class BusinessPlanTable(tag: Tag) extends IndexedTable[BusinessPlan](tag, "business_plan") {
 
   def id = column[Long]("ID", O.PrimaryKey, O.AutoInc)
 

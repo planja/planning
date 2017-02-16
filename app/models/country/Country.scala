@@ -10,7 +10,7 @@ import slick.lifted.Tag
   */
 case class Country(id: Option[Long], shortName: String, fullName: String, regionId: Long) extends Unique
 
-class CountryTable(tag: Tag) extends IndexedTable[Country](tag, "COUNTRIES") {
+class CountryTable(tag: Tag) extends IndexedTable[Country](tag, "countries") {
 
   def id = column[Long]("ID", O.PrimaryKey, O.AutoInc)
 

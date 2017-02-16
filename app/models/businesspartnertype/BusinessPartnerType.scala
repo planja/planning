@@ -10,7 +10,7 @@ import config.SlickDriver.driver.api._
   */
 case class BusinessPartnerType(id: Option[Long], name: String) extends Unique
 
-class BusinessPartnerTypeTable(tag: Tag) extends IndexedTable[BusinessPartnerType](tag, "BUSINESS_PARTNER_TYPE") {
+class BusinessPartnerTypeTable(tag: Tag) extends IndexedTable[BusinessPartnerType](tag, "business_partner_type") {
 
   def id = column[Long]("ID", O.PrimaryKey, O.AutoInc)
 
